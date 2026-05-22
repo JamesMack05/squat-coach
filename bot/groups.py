@@ -18,7 +18,7 @@ from telegram import Bot
 
 from . import config
 
-log = logging.getLogger("squat-coach.groups")
+log = logging.getLogger("squat-father.groups")
 
 
 async def send_to_group(bot: Bot, text: str) -> int | None:

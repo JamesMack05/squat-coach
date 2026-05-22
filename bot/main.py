@@ -38,7 +38,7 @@ from .profiles import (
 from .prompt import build_system_blocks, build_user_message
 from .schemas import CoachResponse
 
-log = logging.getLogger("squat-coach")
+log = logging.getLogger("squat-father")
 
 
 async def _maybe_dispatch_group_share(

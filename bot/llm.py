@@ -18,7 +18,7 @@ from anthropic import AsyncAnthropic
 from . import config
 from .schemas import CoachResponse
 
-log = logging.getLogger("squat-coach.llm")
+log = logging.getLogger("squat-father.llm")
 
 _client: AsyncAnthropic | None = None
 

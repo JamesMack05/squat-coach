@@ -1,4 +1,4 @@
-# squat-coach
+# Squat Father
 
 [![Watch the walkthrough — 4:26 — 5-axis differentiator pass (V1 setup + V2 working set with bot tracking + V3 post-set analysis + V4 ICM addendum)](https://img.youtube.com/vi/qmczFRvXcRQ/maxresdefault.jpg)](https://youtu.be/qmczFRvXcRQ)
 
@@ -38,7 +38,7 @@ Critical surfaces (`coaching_mode` transitions, `injury_notes` updates, `symptom
 ## Code layout
 
 ```
-~/dev/squat-coach/
+~/dev/squat-father/
 ├── coach/                       ← ICM specialist (folder methodology)
 │   ├── identity.md              ← role + voice anchor + structural moves
 │   ├── rules.md                 ← canonical behaviour spec (RP-01..09 + DC-22 read-before-write + onboarding + injury modulation + DC-19 group surface)
@@ -174,8 +174,8 @@ Sign in at https://console.anthropic.com → API keys → Create key. Copy the `
 ### 3. Install and set up the repo
 
 ```powershell
-git clone <repo-url> ~/dev/squat-coach
-cd ~/dev/squat-coach
+git clone <repo-url> ~/dev/squat-father
+cd ~/dev/squat-father
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1     # Windows; source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
@@ -228,7 +228,7 @@ Expected output — two log lines confirm the bot is up and Telegram is reachabl
 
 ```
 $ python -m bot.main
-2026-05-22 19:22:28,958 squat-coach INFO starting long-poll (WEBHOOK_URL unset)
+2026-05-22 19:22:28,958 squat-father INFO starting long-poll (WEBHOOK_URL unset)
 2026-05-22 19:22:29,119 telegram.ext.Application INFO Application started
 ```
 
