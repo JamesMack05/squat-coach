@@ -1,0 +1,5 @@
+# Placeholder so this directory survives git. Pose model files (.task) live here,
+# downloaded by setup. Models themselves are gitignored (~9MB+ binaries).
+#
+# Expected model: pose_landmarker_full.task
+# Source: https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task

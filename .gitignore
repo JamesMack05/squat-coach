@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.local
+
+# MediaPipe model files (downloaded by setup, large binaries)
+models/*.task
+
+# User state (lives in profile.md per-user; never committed)
+coach/profile.md
+profiles/
+
+# Temp video uploads
+temp/
+
+# DC-22 audit log surface (walker observability — not committed)
+audit/
+
+# Local data / scratch
+raw-videos/
+clips/
+*.log
+
+# Local calibration scratch (retired DC-40)
+calibrate_end_position.py
+
+# Local smoke harnesses (personal dev scripts)
+pose/_smoke_*.py
+
+# /readme-brief working artefacts (capture-manifest + escalations are orchestrator-internal)
+readme-capture-manifest.md
+readme-escalations.md

@@ -1,0 +1,8 @@
+# Pose pipeline (validated on Python 3.13)
+mediapipe==0.10.35
+opencv-python==4.13.0.92
+
+# Bot + Claude
+python-telegram-bot[webhooks]==21.6
+anthropic==0.103.1
+python-dotenv==1.0.1
