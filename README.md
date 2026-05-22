@@ -2,7 +2,7 @@
 
 [![Watch the walkthrough — 4:26 — 5-axis differentiator pass (V1 setup + V2 working set with bot tracking + V3 post-set analysis + V4 ICM addendum)](https://img.youtube.com/vi/qmczFRvXcRQ/maxresdefault.jpg)](https://youtu.be/qmczFRvXcRQ)
 
-Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission (Cliefnotes; deadline Sun 2026-05-24 12:00 EST). Click the thumbnail above for the 5-axis differentiator walkthrough — start there.
+Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission. Click the thumbnail above for the 5-axis differentiator walkthrough — start there.
 
 ## The clever part is structural
 
