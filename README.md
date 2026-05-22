@@ -1,10 +1,8 @@
-
-
-<!-- mark: content-type=opacity media=video-clip caption="Comp5Cut — 5-axis differentiator walkthrough (V1 setup + concept → V2 working set with bot tracking → V3 post-set analysis → V4 freeze-frame ICM addendum)" id=m1 capture-action="Drag '05 Content/Competition 5/Comp5Cut-compressed.mp4' (57 MB) into README editor via GitHub web UI; renders as inline HTML5 player at top of repo page" -->
-
 # squat-coach
 
-Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission (Cliefnotes; deadline Sun 2026-05-24 12:00 EST). Video at top is the 5-axis differentiator walkthrough — start there.
+[![Watch the walkthrough — 4:26 — 5-axis differentiator pass (V1 setup + V2 working set with bot tracking + V3 post-set analysis + V4 ICM addendum)](https://img.youtube.com/vi/qmczFRvXcRQ/maxresdefault.jpg)](https://youtu.be/qmczFRvXcRQ)
+
+Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission (Cliefnotes; deadline Sun 2026-05-24 12:00 EST). Click the thumbnail above for the 5-axis differentiator walkthrough — start there.
 
 ## The clever part is structural
 
