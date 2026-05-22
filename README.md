@@ -250,7 +250,7 @@ You should see the log line `starting webhook listen=0.0.0.0:8443 url=<your-tunn
 
 ## Honest gaps
 
-Per Comp 5 ship-discipline — surface what is NOT shipped or NOT verified, don't bury it.
+Per Comp 5 ship-discipline — surface what is NOT shipped or NOT verified.
 
 1. **Notification subsystem dropped between brainstorm and synthesis.** Pre-plan flagged proactive check-ins (Claude Code Routines / ntfy.sh / Anthropic Telegram plugin) as *"the highest-leverage differentiator distinguishing a coach from a chatbot."* The synthesis pass dropped this silently without a decision-call. The bot is reactive-only — no between-session messages. This is a real product gap.
 2. **Static-only verified rule fixes from Fri PM testing** (not behaviourally re-tested due to API credit exhaustion): DC-19 fears-fix (current-turn vs historical profile data distinction), DC-19 initiator-pattern + no-pre-validation clauses, DC-19 crew-leader tone + name-anchoring via `user_first_name` plumbing, RP-07 multi-phase interpretation sub-clause, `bot/main.py video_handler` "on CPU" string removal.
@@ -260,9 +260,8 @@ Per Comp 5 ship-discipline — surface what is NOT shipped or NOT verified, don'
 
 ## Wider ship surface
 
-- **YouTube cut:** https://youtu.be/qmczFRvXcRQ — 5-axis differentiator walkthrough. V1 setup + bot concept → V2 working set with bot-tracking narration → V3 post-set analysis → V4 audio addendum on freeze-frame (ICM architecture clarification). Edited mid-session for honesty: V2 over-claim "neck movement" cut, V3 active-learning over-claim trimmed at 1:04 (verified against codebase — no tendency-detection mechanism in schema).
-- **Compressed video for inline embed:** the video at the top of this README is the same cut. Plays inline on repo page load — primary visibility surface for skim-judges.
+- **YouTube cut:** https://youtu.be/qmczFRvXcRQ — 5-axis differentiator walkthrough. V1 setup + bot concept → V2 working set with bot-tracking narration → V3 post-set analysis → V4 audio addendum on freeze-frame (ICM architecture clarification).
 
 ---
 
-Built for [Cliefnotes Comp 5](https://www.skool.com/cliefnotes) by James Mackellar. Comp 4 honorable mention (Jake's YouTube playlist call-out) was the upstream signal that visible-engineering wins over invisible-correctness — this submission leans into that lesson.
+Built for [Cliefnotes Comp 5](https://www.skool.com/cliefnotes) by James Mackellar.
