@@ -1,3 +1,5 @@
+
+
 <!-- mark: content-type=opacity media=video-clip caption="Comp5Cut — 5-axis differentiator walkthrough (V1 setup + concept → V2 working set with bot tracking → V3 post-set analysis → V4 freeze-frame ICM addendum)" id=m1 capture-action="Drag '05 Content/Competition 5/Comp5Cut-compressed.mp4' (57 MB) into README editor via GitHub web UI; renders as inline HTML5 player at top of repo page" -->
 
 # squat-coach
