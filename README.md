@@ -6,7 +6,7 @@ Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission (Cl
 
 ## The clever part is structural
 
-The `coach/` folder IS the ICM specialist (Jake's Information / Context / Memory framework). Telegram is one I/O layer wrapped around it. The same coach folder drops directly into a Claude Project today (zero modifications) or pairs with any other I/O surface — web, Discord, SMS, CLI. Architecture is not bound to Telegram: `bot/main.py` is the only Telegram-coupled file in the codebase.
+The `coach/` folder IS the ICM specialist (Jake's Information / Context / Memory framework). Telegram is one I/O layer wrapped around it. The same coach folder drops directly into a Claude Project today (zero modifications) or pairs with any other I/O surface — web, Discord, SMS, CLI. Architecture is not bound to Telegram: coupling is concentrated in two files (`bot/main.py` + `bot/groups.py`, both importing `python-telegram-bot`); everything else is I/O-agnostic.
 
 Specialisation is deliberate. Not "fitness coach generally" — back squat, hypertrophy, RIR 1-3 baseline, 5-30 rep envelope, mesocycle awareness. Narrowing buys differentiation depth: rep-band coaching, fatigue-degraded rep analysis, drill prescription, injury-state modulation.
 
