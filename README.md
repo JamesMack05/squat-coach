@@ -4,17 +4,17 @@
 
 Telegram-deployed AI coach for back-squat-for-hypertrophy. Comp 5 submission. Click the thumbnail above for the 5-axis differentiator walkthrough — start there.
 
-## The clever part is structural
+## Structure
 
 The `coach/` folder IS the ICM specialist (Jake's Information / Context / Memory framework). Telegram is one I/O layer wrapped around it. The same coach folder drops directly into a Claude Project today (zero modifications) or pairs with any other I/O surface — web, Discord, SMS, CLI. Architecture is not bound to Telegram: coupling is concentrated in two files (`bot/main.py` + `bot/groups.py`, both importing `python-telegram-bot`); everything else is I/O-agnostic.
 
 Specialisation is deliberate. Not "fitness coach generally" — back squat, hypertrophy, RIR 1-3 baseline, 5-30 rep envelope, mesocycle awareness. Narrowing buys differentiation depth: rep-band coaching, fatigue-degraded rep analysis, drill prescription, injury-state modulation.
 
-## Five differentiators, ordered by visibility
+## Five differentiators
 
 1. **Telegram deployment surface (DC-12).** Most submissions ship as Claude Projects. Telegram demonstrates the bot's portability AND solves the "how does a real user actually access it?" question. Demo subject in the YouTube cut.
 2. **Onboarding-as-coaching (DC-07).** Onboarding is a coach-led conversation, not a setup wizard. Structurally enforces "no coaching advice before onboarding complete" via `rules.md`. The first 6 questions ARE the coach's first turn with the user.
-3. **Narrated internal state (DC-09).** Bot reasoning surfaces through `audit/<chat_id>.log` — Claude's REASONING trace on every turn. Visible-engineering observability surface; debuggable in <5min during testing.
+3. **Narrated internal state.** Bot reasoning surfaces through `audit/<chat_id>.log` — Claude's REASONING trace on every turn. Visible-engineering observability surface; debuggable in <5min during testing.
 4. **Hypertrophy specialisation (DC-11).** Narrow the domain to win on depth. RIR / RPE / mesocycle / autoreg / drop-set vocabulary natural; `rep_band_preference` field load-bearing in coaching prescriptions.
 5. **Cross-domain primitives.** Folder methodology (DC-26 strict file-class separation) is the agent-architecture primitive; pose-pipeline architecture (DC-29..36) is the video-analysis primitive. Both designed to lift downstream into other engagements unchanged.
 
@@ -26,14 +26,14 @@ Three load-bearing structural properties. None are "if Claude remembers" default
 
 **P2 — Constitutional spine: `rules.md` is canonical for behaviour (DC-20).** `identity.md`, `examples.md`, `reference/`, `profile-template.md` reference rules by RP-NN name; they do NOT restate behaviour. Single source of truth at folder scope. A behavioural change is a one-file edit; downstream coherence inherits by construction.
 
-**P3 — Read-before-write announce-then-confirm on profile mutations (DC-22).** Every `profile.md` mutation goes through:
+**P3 — Announce-then-write on profile mutations (DC-22).** Every `profile.md` mutation goes through:
 
-1. Bot reads current profile state.
-2. Claude announces the proposed change in `reply` (e.g. *"I'm setting your rep band to 6-8 based on what you said — confirm?"*).
-3. User confirms in the next turn.
-4. Bot writes via `apply_updates()`.
+1. Bot reads current profile state and injects it into the coach's prompt.
+2. Claude returns a single structured response containing both `reply` (the announcement, e.g. *"I'm setting your rep band to 6-8 based on what you said — sound right?"*) and `profile_updates` (the typed mutation list).
+3. Bot calls `apply_updates()` on the same turn — writes the mutation and logs the reason to `audit/<chat_id>.log`.
+4. If the user disagrees on the next turn, the coach emits a corrective update.
 
-Critical surfaces (`coaching_mode` transitions, `injury_notes` updates, `symptom_reports` appends) are catastrophically unsafe under silent write — the discipline is structurally enforced via the announce-then-write split. Walker observability lives in `audit/<chat_id>.log`.
+Critical surfaces (`coaching_mode` transitions, `injury_notes` updates, `symptom_reports` appends) are catastrophically unsafe under silent write — the discipline is enforced by **schema separation** (mutations flow only through the typed `profile_updates` field) and **prompt convention** (the coach must announce in `reply` whenever `profile_updates` is non-empty). Walker observability lives in `audit/<chat_id>.log`.
 
 ## Code layout
 
@@ -72,6 +72,8 @@ Critical surfaces (`coaching_mode` transitions, `injury_notes` updates, `symptom
 
 ## Design choices — the load-bearing picks
 
+*RP-NN = coaching behavioural primitive (defined in `rules.md`). DC-NN = numbered design decision logged during the pre-build design phase.*
+
 ### Folder methodology (Jake's ICM pattern, adapted)
 
 - **DC-20 — Constitutional spine.** `rules.md` is the single source of truth for behaviour (see P2 above).
@@ -86,9 +88,9 @@ Critical surfaces (`coaching_mode` transitions, `injury_notes` updates, `symptom
 - **RP-02 — Progression gating.** Escalate load on demonstrated proficiency (form-history + pose data), not user request. Layers: double-progression → autoreg → mesocycle. Form gate overrides.
 - **RP-03 — Active observation.** Where the user can self-verify, give them a self-check step (*"screenshot deepest position, what do you see?"*) rather than asserting from pose alone.
 - **RP-04 — Reactive accountability.** Track drill assignments in `drill_ledger`. On user return with an un-confirmed drill: ask BEFORE anything else.
-- **RP-05 — Confidence-graded contradiction.** High-confidence (near-side vis ≥0.7 + consistent signal) → direct contradiction, zero hedging. Medium (noisy or single-rep) → name two hypotheses + propose concrete next test. Low (vis <0.7 or fragmentary) → honesty primitive + concrete actionable re-shoot instruction.
+- **RP-05 — Confidence-graded contradiction.** High-confidence (near-side vis >0.7 + consistent signal) → direct contradiction, zero hedging. Medium (noisy or single-rep) → name two hypotheses + propose concrete next test. Low (vis <0.7 or fragmentary) → honesty primitive + concrete actionable re-shoot instruction.
 - **RP-06 — Register modes.** `empathy_first` vs `push_hard` — user picks at onboarding, can change mid-session via explicit request. Same coach identity across modes; intensity differs only.
-- **RP-07 — Multi-rep fatigue-degradation analysis.** When pose data shows velocity loss + depth degradation + ROM change across reps: name fatigue-degraded reps SPECIFICALLY (not average rep) and prescribe a one-cue targeting the fatigue pattern. Composes DC-03 (one-cue) + DC-09 (narrated state) + DC-18 (reactive accountability).
+- **RP-07 — Multi-rep fatigue-degradation analysis.** When pose data shows velocity loss + depth degradation + ROM change across reps: name fatigue-degraded reps SPECIFICALLY (not average rep) and prescribe a one-cue targeting the fatigue pattern. Composes DC-03 (one-cue) + DC-09 (hedging discipline) + DC-18 (reactive accountability).
 - **RP-08 — Injury-state coaching modulation.** `coaching_mode` enum (`healthy` / `injury_managing` / `injury_recovery` / `return_to_training` / `unknown`) modulates RIR targets, depth floor, tempo, progression layer, and drill pool filter. Catastrophic-severity-dominant rules; silent mode flip would be structurally invisible.
 - **RP-09 — Symptom capture.** 14d/5-session memory window for pattern detection (first / repeated_same_location / escalating). Fires across ALL coaching modes — even `healthy` (a symptom report IS the trigger for the mode-transition prompt).
 
@@ -121,12 +123,12 @@ User                       Bot                          Claude                Po
  │                          │  + user_profile + message)   │                       │
  │                          ├─────────────────────────────►│                       │
  │                          │                              │ reply: onboarding Q1  │
- │                          │                              │ profile_updates: []   │
+ │                          │                              │ (no profile updates)  │
  │                          │◄─────────────────────────────┤                       │
- │ "Coach Q1 reply"         │ apply_updates() noop         │                       │
+ │ "Coach Q1 reply"         │ apply_updates(): noop        │                       │
  │◄─────────────────────────┤                              │                       │
  │                          │                              │                       │
- │ ...onboarding loop (Q2-Q6 per DC-37, each turn DC-22 announce-then-confirm)...   │
+ │ ...onboarding loop Q2-Q6...                                                     │
  │                          │                              │                       │
  │ [uploads squat video]    │                              │                       │
  ├─────────────────────────►│                              │                       │
@@ -146,8 +148,8 @@ User                       Bot                          Claude                Po
  │                          │  markdown + user message)    │                       │
  │                          ├─────────────────────────────►│                       │
  │                          │                              │ reply: coach analysis │
- │                          │                              │ profile_updates: e.g. │
- │                          │                              │  drill_ledger append  │
+ │                          │                              │ profile updates (e.g. │
+ │                          │                              │  log drill completion)│
  │                          │◄─────────────────────────────┤                       │
  │                          │ apply_updates() writes       │                       │
  │                          │ profile.md + audit log       │                       │
@@ -157,7 +159,7 @@ User                       Bot                          Claude                Po
 
 **Subsequent sessions:** `profile.md` persists across sessions. Claude reads it every turn. `drill_ledger` accumulates assigned drills + user-confirmed completions. RP-04 (reactive accountability) fires on session re-open: if the drill assigned last session is uncompleted, the bot asks about it BEFORE accepting a new video.
 
-**Group surface (DC-19):** every group-share moment fires a FRESH per-post offer; never references prior consent ("you said yes last time"); never skips the gate. `group_share_history` is an event log for audit and walker observability, NOT a permission cache. Vulnerable moments (injury reports / fears / register-mode pick) structurally suppress the group-share offer.
+**Group surface:** every group-share moment fires a FRESH per-post offer; never references prior consent ("you said yes last time"); never skips the gate. `group_share_history` is an event log for audit and walker observability, NOT a permission cache. Vulnerable moments (injury reports / fears / register-mode pick) structurally suppress the group-share offer.
 
 ## Setup
 
